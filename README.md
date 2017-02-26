@@ -1,4 +1,4 @@
 # Prometheus
 RISCV core unit verification system
 
-RI5CY core frome pulp-platform is used
+RI5CY core from pulp-platform is used
