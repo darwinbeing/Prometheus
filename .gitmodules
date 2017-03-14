@@ -1,3 +1,6 @@
 [submodule "riscv-isa-sim"]
 	path = riscv-isa-sim
 	url = https://github.com/riscv/riscv-isa-sim.git
+[submodule "rtl/ri5cy"]
+	path = rtl/ri5cy
+	url = https://github.com/Zhikharev/riscv.git
