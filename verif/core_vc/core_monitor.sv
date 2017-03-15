@@ -13,7 +13,7 @@
 
 class core_monitor extends uvm_monitor;
 
-  virtual core_if vif;
+  protected virtual core_if vif;
 
   uvm_analysis_port#(core_bus_item) item_collected_port;
 
@@ -27,6 +27,11 @@ class core_monitor extends uvm_monitor;
     super.new(name, parent);
     item_collected_port = new("item_collected_port", this);
     req_q = new("req_q");
+  endfunction
+
+  function void set_vif(virtual core_if intf);
+    if($test$plusargs("CORE_VIF_TRACE")) `uvm_info("VIF_TRACE", $sformatf("core_if interface was set for %s.vif", get_full_name()), UVM_NONE)
+    vif = intf;
   endfunction
 
   function void build_phase(uvm_phase phase);
@@ -81,10 +86,11 @@ class core_monitor extends uvm_monitor;
 
   function void process_bus_rsp();
   	if(req_q.size() != 0 && vif.mon.rvalid) begin
-  	core_bus_item item = req_q.pop_front();
-  	item.req_finished_time = $time();
-  	item.rdata = vif.mon.rdata;
-  	item_collected_port.write(item);
+  	 core_bus_item item = req_q.pop_front();
+  	 item.req_finished_time = $time();
+  	 item.rdata = vif.mon.rdata;
+  	 item_collected_port.write(item);
+    end
   endfunction
 
 endclass

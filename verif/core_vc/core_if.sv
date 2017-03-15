@@ -24,7 +24,7 @@ interface core_if(input wire clk, input wire rst);
 
 	logic drv_clk;
 
-	always_comb  #`CORE_CLK_DELAY drv_clk = clk;
+	always  #`CORE_CLK_DELAY drv_clk = clk;
 
 	clocking mon @(posedge clk);
 		input req;
@@ -38,7 +38,7 @@ interface core_if(input wire clk, input wire rst);
 	endclocking
 
 	clocking drv_m @(posedge drv_clk);
-		default input `CORE_SKEW_IN output `CORE_SKEW_OUT;
+		default input #`CORE_SKEW_IN; default output #`CORE_SKEW_OUT;
 		output req;
 		output addr;
 		output we;
@@ -50,7 +50,7 @@ interface core_if(input wire clk, input wire rst);
 	endclocking
 
 	clocking drv_s @(posedge drv_clk);
-		default input `CORE_SKEW_IN output `CORE_SKEW_OUT;
+		default input #`CORE_SKEW_IN; default output #`CORE_SKEW_OUT;
 		output gnt;
 		output rvalid;
 		output rdata;

@@ -14,13 +14,12 @@
 
 class core_slave_driver extends uvm_driver #(core_bus_item);
 
-  virtual core_if vif;
-  core_slave_agent_cfg cfg;
+  protected virtual core_if vif;
+  protected core_slave_agent_cfg cfg;
 
   protected core_bus_state gnt_bus_state;
   protected core_bus_state rsp_bus_state;
   protected uvm_queue #(core_bus_item) outstanding_req_q;
-
 
   `uvm_component_utils(core_slave_driver)
 
@@ -29,6 +28,16 @@ class core_slave_driver extends uvm_driver #(core_bus_item);
     outstanding_req_q = new("outstanding_req_q");
     gnt_bus_state = IDLE;
     rsp_bus_state = IDLE;
+  endfunction
+
+  function void set_vif(virtual core_if intf);
+    if($test$plusargs("CORE_VIF_TRACE")) `uvm_info("VIF_TRACE", $sformatf("core_if interface was set for %s.vif", get_full_name()), UVM_NONE)
+    vif = intf;
+  endfunction
+
+  function void set_cfg(core_slave_agent_cfg cfg);
+    if($test$plusargs("CORE_CFG_TRACE")) `uvm_info("CFG_TRACE", $sformatf("core_slave_agent_cfg configuration was set for %s.cfg", get_full_name()), UVM_NONE)
+    this.cfg = cfg;
   endfunction
 
   function void build_phase(uvm_phase phase);
@@ -87,7 +96,7 @@ class core_slave_driver extends uvm_driver #(core_bus_item);
             		if(gnt_item != null) begin
             			do_gnt_item(gnt_item);
               	end
-              	else
+              	else begin
               		vif.drv_s.gnt <= 1'b0;
            				bus_state = IDLE;
            			end

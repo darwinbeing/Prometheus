@@ -22,6 +22,10 @@ class core_slave_agent_cfg extends core_agent_cfg;
 		`uvm_field_int(rvalid_default_value, 	UVM_DEFAULT)
 	`uvm_object_utils_end
 
+  function new(string name = "core_slave_agent_cfg");
+    super.new(name);
+  endfunction
+
 endclass
 
 `endif

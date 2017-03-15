@@ -9,10 +9,12 @@
 // DESCRIPTION    :
 // ----------------------------------------------------------------------------
 
-`include "core_defines.svh"
+`include "core_defines.sv"
 `include "core_if.sv"
 
 package core_vc_pkg;
+
+	import uvm_pkg::*;
 
 	typedef enum int {INSTR, DATA} core_if_enum;
 

@@ -47,10 +47,11 @@ class core_slave_agent extends uvm_agent;
     super.connect_phase(phase);
     if(cfg.is_active) begin
       driver.seq_item_port.connect(sequencer.seq_item_export);
-      driver.vif = cfg.vif;
+      driver.set_vif(cfg.vif);
+      driver.set_cfg(cfg);
     end
     monitor.item_collected_port.connect(item_collected_port);
-    monitor.vif = cfg.vif;
+    monitor.set_vif(cfg.vif);
   endfunction
 endclass
 

@@ -25,6 +25,10 @@ class core_agent_cfg extends uvm_object;
 		`uvm_field_object(is_active, UVM_DEFAULT)
 	`uvm_object_utils_end
 
+  function new(string name = "core_agent_cfg");
+    super.new(name);
+  endfunction
+
 endclass
 
 `endif
