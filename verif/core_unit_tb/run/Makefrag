@@ -1,0 +1,21 @@
+CORE_VC_HOME=$(BENCH_HOME)/../core_vc
+
+UVM_OPTS=\
+	+define+UVM_1_2 \
+	+define+UVM_REG_DATA_WIDTH=64 \
+	$(UVM_HOME)/src/uvm_pkg.sv \
+	$(UVM_HOME)/src/uvm_macros.svh
+
+
+VLOG_OPTS+=\
+	+incdir+$(BENCH_HOME) \
+	+incdir+$(BENCH_HOME)/uvm \
+	+incdir+$(CORE_VC_HOME) \
+	$(UVM_OPTS) \
+	$(VIP_OPTS) \
+	$(JTAG_VIP_OPTS) \
+	$(VC_OPTS) \
+	$(BENCH_HOME)/uvm/uvm.inc.sv \
+	$(BENCH_HOME)/testbench/core_assembled.sv \
+	$(BENCH_HOME)/testbench/core_tb_top.sv
+
